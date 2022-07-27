@@ -35,6 +35,15 @@
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </div>
+                    <div>
+                        <label for="Tags">Tags</label>
+                        @foreach($tags as $tag)
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="{{$tag->slug}}" value="{{$tag->id}}">
+                                <label class="form-check-label" for="{{$tag->slug}}">{{$tag->name}}</label>
+                            </div>
+                        @endforeach
+                    </div>
                     <div class="form-group form-check">
                         <input type="checkbox" class="form-check-input @error('published') is-invalid @enderror" id="published" name="published" {{old('published') ? 'checked' : ''}}>
                         <label class="form-check-label" for="published">Pubblic</label>
