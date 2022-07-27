@@ -49,6 +49,7 @@ class PostController extends Controller
             'title' => 'required|string|max:255',
             'content' => 'required|string|max:65535',
             'published' => 'sometimes|accepted',
+            'tags' => 'nullable|exists:tags,id'
             
         ]);
         // prendo i dati dalla request e creo il post
@@ -60,6 +61,10 @@ class PostController extends Controller
 
         $newPost->published = isset($data['published']); // true o false
         $newPost->save();
+
+        if(isset($data['tags'])){
+            $newPost->tags()->sync($data['tags']);
+        }
         // redirect alla pagina del post appena creato
         return redirect()->route('admin.posts.show', $newPost->id);
     }
